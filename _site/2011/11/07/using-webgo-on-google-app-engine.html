@@ -64,7 +64,7 @@ var server *web.Server
 func init() {
     server = &amp;web.Server{
         Config: web.Config,
-        Logger: log.New(os.Stdout, &quot;&quot;, log.Ldate.log.Ltime)}
+        Logger: log.New(os.Stdout, &quot;&quot;, log.Ldate|log.Ltime)}
     server.Get(&quot;/&quot;, func(ctx *web.Context) {
         ctx.Write([]uint8(&quot;Hello from web.go!&quot;))
     })
