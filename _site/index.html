@@ -47,7 +47,7 @@
 
         </header>
         <section class="post-excerpt">
-            
+            In short, if you want to use web.go in Google App Engine&#39;s Go runtime environment, check out my google-app-engine branch of web.go. Using that one you can start using web.go like this: package webgoexample import ( &quot;http&quot; &quot;log&quot; &quot;os&quot; &quot;web&quot; ) var server *web.Server func init() { server = &amp;web.Server{...
         </section>
     </article>
 
@@ -60,7 +60,7 @@
 
         </header>
         <section class="post-excerpt">
-            
+            I often see code like this: message[&quot;To&quot;] = formataddr((name, email)) This looks like it should work, especially since the docstring of formataddr() says that it will return a string value suitable for a To or Cc header. However, while it works most of the time, it fails if name is...
         </section>
     </article>
 
@@ -73,7 +73,7 @@
 
         </header>
         <section class="post-excerpt">
-            
+            To start with, I think drive-by fixes are great. If you see that something is wrong when fixing something else, it can be a good idea to fix it right away, since otherwise you probably won&#39;t do it. However, even when doing drive-by fixes, I still think that each landed...
         </section>
     </article>
 
@@ -86,7 +86,7 @@
 
         </header>
         <section class="post-excerpt">
-            
+            I&#39;ve been working on a new release/merge workflow for Launchpad. I&#39;ve written it from the developers&#39; point of view, but I&#39;d love some comments from users of launchpad.net, so let me try to explain how you, as users, would be affected by this change. The proposal is that we would...
         </section>
     </article>
 
@@ -99,7 +99,7 @@
 
         </header>
         <section class="post-excerpt">
-            
+            I made the transition from the Bugs team lead to the Launchpad Technical Architect quite a while ago. While the first time was spent mainly on satisfying my coding desires, it&#39;s time to define what I&#39;m going to spend my time as technical architect! My road map that shows the...
         </section>
     </article>
 
@@ -112,7 +112,7 @@
 
         </header>
         <section class="post-excerpt">
-            
+            We&#39;ve used Windmill in our Launchpad buildbots for a while now, and it&#39;s actually worked out quite well. I was afraid that we would have a lot of fallout, since in the beginning Windmill was fragile and caused a lot of intermittent test failure. However, so far I&#39;d said that...
         </section>
     </article>
 
@@ -125,7 +125,7 @@
 
         </header>
         <section class="post-excerpt">
-            
+            I can&#39;t stress enough how important it is to automatically block, stop the line, when a regression occurs. Forcing someone to take action. Don&#39;t think it&#39;s enough to have tests to catch regressions. It won&#39;t help you much, unless you run them automatically, and most importantly, block on test failures,...
         </section>
     </article>
 
@@ -138,7 +138,7 @@
 
         </header>
         <section class="post-excerpt">
-            
+            When doing work on something that is supposed to be used by others, don&#39;t forget to think about how it&#39;s actually going to be used. Not only to think about it, but to actually try it out, to confirm that it works nicely when integrated, and that it&#39;s easy to...
         </section>
     </article>
 
@@ -151,7 +151,7 @@
 
         </header>
         <section class="post-excerpt">
-            
+            I will probably implement this myself at some point, but if anyone wants to use their bzr and launchpadlib skills to make the world a slightly better place, I&#39;d be grateful. You don&#39;t even have to have any bzr and launchpadlib skills, both are quite easy to get started with....
         </section>
     </article>
 
@@ -164,7 +164,7 @@
 
         </header>
         <section class="post-excerpt">
-            
+            In PyGarmin, I used PyUSB to implement USB support, and I was struck with one odd error. Sometimes, a USBError was raised, with the error message &quot;No error&quot;. I couldn&#39;t find any documentation for this, and I still don&#39;t understand why an error was raised, saying that there was no error. The error happenend when trying to read from the bus for the first time, after trying to send two packet without any errors....
         </section>
     </article>
 
@@ -177,7 +177,7 @@
 
         </header>
         <section class="post-excerpt">
-            
+            It&#39;s been a while, but I&#39;ve finally found some time to work on pygarmin and garmin-sync again. This has resulted in a new version of garmin-sync, 0.3. Not much has changed since 0.2; the biggest changes are in pygarmin itself. In general, this version should work better for people who...
         </section>
     </article>
 
@@ -190,7 +190,7 @@
 
         </header>
         <section class="post-excerpt">
-            
+            The first version of GarminSync didn&#39;t work too well. It did download the runs from the GPS, but the resulting .tcx files were not valid, so they couldn&#39;t be uploaded to motionbased.com. Also, if there were pauses in the run, some track points weren&#39;t included in the exported. I&#39;ve now...
         </section>
     </article>
 
@@ -203,7 +203,7 @@
 
         </header>
         <section class="post-excerpt">
-            
+            I have been working on a program that can download data from my Garmin Edge 305 GPS in Linux, and now I&#39;ve finally got something that&#39;s work. The program is called GarminSync, and you can download it from Launchpad. Please try it out, but don&#39;t expect too much from it....
         </section>
     </article>
 
@@ -216,7 +216,7 @@
 
         </header>
         <section class="post-excerpt">
-            
+            While extending pygarmin to support my Garmin Edge 305, I ran into a problem; pygarmin uses the serial protocol, and some packets that the Edge sends are too big for the serial protocol to handle. So when you request some information from the GPS, you don&#39;t get any response back....
         </section>
     </article>
 
@@ -229,7 +229,7 @@
 
         </header>
         <section class="post-excerpt">
-            
+            While modifying pygarmin to support my Edge 305, I was faced with the problem how to submit my patches to be included in pygarmin; I don&#39;t have commit access, so I can&#39;t commit the changes myself. One way of doing it is of course to generate a diff, and attach...
         </section>
     </article>
 

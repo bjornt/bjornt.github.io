@@ -26,7 +26,7 @@ Using that one you can start using `web.go` like this:
     func init() {
         server = &web.Server{
             Config: web.Config,
-            Logger: log.New(os.Stdout, "", log.Ldate.log.Ltime)}
+            Logger: log.New(os.Stdout, "", log.Ldate|log.Ltime)}
         server.Get("/", func(ctx *web.Context) {
             ctx.Write([]uint8("Hello from web.go!"))
         })
