@@ -7,6 +7,7 @@ pygments: true
 logo: false
 paginate: 15
 permalink: /blog/:year/:month/:day/:title
+baseurl: /
 
 # Details for the RSS feed generator
 url:            'http://tillenius.me/'
