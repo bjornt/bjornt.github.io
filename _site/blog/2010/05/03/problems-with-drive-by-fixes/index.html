@@ -65,13 +65,12 @@ unrelated (or even related) changes, you basically hide it. By reducing
 your workload slightly, you create much more work for someone else.</p>
 
 <p>For example, on Friday I saw that we had some problems with scripts in 
-<code>Launchpad &lt;https://launchpad.net&gt;</code><em>. They were trying to write to a mail directory, to which they
-didn&#39;t have access. That was odd, since scripts have always talked to 
-the SMTP servers directly, and didn&#39;t use the queued mailer that needed
-write access to that directory. Looking through the recent commit logs 
-didn&#39;t reveal anything. Luckily enough, William Grant pointed out that 
-<code>r9205 of db-devel
-&lt;http://bazaar.launchpad.net/~launchpad-pqm/launchpad/db-devel/revision/9205&gt;</code></em>
+<a href="https://launchpad.net">Launchpad</a>. They were trying to write to a mail
+directory, to which they didn&#39;t have access. That was odd, since scripts have
+always talked to the SMTP servers directly, and didn&#39;t use the queued mailer
+that needed write access to that directory. Looking through the recent commit
+logs didn&#39;t reveal anything. Luckily enough, William Grant pointed out that 
+<a href="http://bazaar.launchpad.net/%7Elaunchpad-pqm/launchpad/db-devel/revision/9205"><code>r9205</code> of <code>db-devel</code></a>
 contained a change to <code>sendmail.py</code>, which probably was the cause of the
 problems. This turned out to be correct, but it was still pretty much 
 impossible to see why that change was made. I decided that the best thing
@@ -81,13 +80,9 @@ than 70 files were changed. So how can I know which other files were
 change to accommodate the change in <code>sendmail.py</code>. I tried looking at 
 the commit logs, but that didn&#39;t reveal much. The only thing I could do 
 was to revert the change in <code>sendmail.py</code> and send it off to ec2, 
-waiting three hours to see if anything broke.</p>
-
-<p>So, I plead again, if you do drive-by fixes (and you should), <strong>please
-spend a few minutes extra, to extract the fix into a separate branch, 
-and land it separately!</strong></p>
-
-<p>Is there maybe anything we can do to make this easier to do?</p>
+waiting three hours to see if anything broke.
+So, I plead again, if you do drive-by fixes (and you should), <strong>please spend a few minutes extra, to extract the fix into a separate branch, and land it separately!</strong> 
+Is there maybe anything we can do to make this easier to do?</p>
 
         </section>
 
