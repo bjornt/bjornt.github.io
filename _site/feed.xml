@@ -7,6 +7,84 @@
         <atom:link href="http://tillenius.me/feed.xml" rel="self" type="application/rss+xml" />
         
             <item>
+                <title>Enabling middleclick scrolling in Ubuntu for Lenovo clickpads</title>
+                <description>&lt;p&gt;The short version is that if you want to enable middleclick scrolling
+for Lenovo clickpads in Ubuntu, do this in a terminal:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo add-apt-repository ppa:bjornt/evdev
+sudo apt-get update
+sudo apt-get dist-upgrade
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The commands above should upgrade the &lt;code&gt;xserver-xorg-input-evdev&lt;/code&gt; package,
+as well as remove the &lt;code&gt;xserver-xorg-input-synaptics&lt;/code&gt; and
+&lt;code&gt;xserver-xorg-input-all&lt;/code&gt; packages.&lt;/p&gt;
+
+&lt;p&gt;Next you need to create a file at
+&lt;code&gt;/usr/share/X11/xorg.conf.d/90-clickpad.conf&lt;/code&gt; with the following contents:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Section &amp;quot;InputClass&amp;quot;
+    Identifier &amp;quot;Clickpad&amp;quot;
+    MatchIsTouchpad &amp;quot;on&amp;quot;
+    MatchDevicePath &amp;quot;/dev/input/event*&amp;quot;
+    Driver &amp;quot;evdev&amp;quot;
+    # Synaptics options come here.
+    Option &amp;quot;Clickpad&amp;quot; &amp;quot;true&amp;quot;
+    option &amp;quot;EmulatedMidButtonTime&amp;quot; &amp;quot;0&amp;quot;
+    Option &amp;quot;SoftButtonAreas&amp;quot; &amp;quot;65% 0 0 40% 42% 65% 0 40%&amp;quot;
+    Option &amp;quot;AreaBottomEdge&amp;quot; &amp;quot;0%&amp;quot;
+EndSection
+
+Section &amp;quot;InputClass&amp;quot;
+    Identifier   &amp;quot;TrackPoint&amp;quot;
+    MatchProduct &amp;quot;TrackPoint&amp;quot;
+    MatchDriver  &amp;quot;evdev&amp;quot;
+    Option       &amp;quot;EmulateWheel&amp;quot;       &amp;quot;1&amp;quot;
+    Option       &amp;quot;EmulateWheelButton&amp;quot; &amp;quot;2&amp;quot;
+    Option       &amp;quot;XAxisMapping&amp;quot;       &amp;quot;6 7&amp;quot;
+EndSection
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The interesting options are &lt;code&gt;SoftButtonAreas&lt;/code&gt; and &lt;code&gt;AreaBottomEdge&lt;/code&gt;.
+&lt;code&gt;SoftButtonAreas&lt;/code&gt; specifies where the buttons should be. If you want the
+buttons at the top, itt should generally be in the form &lt;code&gt;&amp;quot;R 0 0 H L R 0 H&amp;quot;&lt;/code&gt;,
+where &lt;code&gt;R&lt;/code&gt; is where the border between the middle and right buttons, &lt;code&gt;H&lt;/code&gt;
+is the height of the buttons, and &lt;code&gt;L&lt;/code&gt; is the border between the middle and
+left buttons.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;AreaBottomEdge&lt;/code&gt; turns off the touchpad, expect for clicking. If you
+want to keep using the touchpad, you can instead specify &lt;code&gt;AreaTopEdge&lt;/code&gt;,
+with the same value you use for &lt;code&gt;H&lt;/code&gt;. That would enable the touchpad below
+the buttons.&lt;/p&gt;
+
+&lt;p&gt;Unfortunately, you can&amp;#39;t specify where the left button should be,
+instead if occupies everything that isn&amp;#39;t the middle or right button.
+This is a bit annoying, since at least I tend to touch the touchpad with
+my palm when reaching for the middle button, which will result in a left
+click being registered instead of a middle click.&lt;/p&gt;
+
+&lt;p&gt;I created this package because Ubuntu doesn&amp;#39;t quite support the
+clickpads that come in the newer Lenovo laptops. Ubuntu does support
+clickpads, and with the &lt;code&gt;SoftButtonAreas&lt;/code&gt; config settings it&amp;#39;s possible to
+have three soft buttons on the clickpad where the real buttons used to
+be. However, what&amp;#39;s not supported out of the box is middleclick
+scrolling, where you hold the middle button and scroll with the
+trackpoint.&lt;/p&gt;
+
+&lt;p&gt;The main problem is that the clickpad is driven by &lt;code&gt;synaptics&lt;/code&gt; and
+the trackpoint by &lt;code&gt;evdev&lt;/code&gt;, and they can&amp;#39;t communicate to generate the
+scroll events. Bae Taegil &lt;a href=&quot;https://aur.archlinux.org/packages/xf86-input-evdev-trackpoint/&quot;&gt;patched the &lt;code&gt;evdev&lt;/code&gt; driver&lt;/a&gt; to basically include
+the &lt;code&gt;synaptics&lt;/code&gt; driver. I&amp;#39;ve taken that patch and generated a package for
+Ubuntu 14.04. I&amp;#39;ve only added a package for Trusty, but I could add packages
+for other releases if needed. I will most likely add one for Utopic,
+when it becomes more stable.&lt;/p&gt;
+</description>
+                <pubDate>Tue, 19 Aug 2014 11:30:00 +0300</pubDate>
+                <link>http://tillenius.me/blog/2014/08/19/ubuntu-clickpad-middle-scroll</link>
+                <guid isPermaLink="true">http://tillenius.me/blog/2014/08/19/ubuntu-clickpad-middle-scroll</guid>
+            </item>
+        
+            <item>
                 <title>Using web.go on Google App Engine</title>
                 <description>&lt;p&gt;In short, if you want to use &lt;a href=&quot;http://www.getwebgo.com/&quot;&gt;&lt;code&gt;web.go&lt;/code&gt;&lt;/a&gt; in
 &lt;a href=&quot;http://code.google.com/appengine/docs/go/overview.html&quot;&gt;Google App Engine&amp;#39;s Go runtime environment&lt;/a&gt;, check out
@@ -442,19 +520,6 @@ branch and manually make sure that it works nicely when integrated. Take a look 
                 <pubDate>Wed, 02 Dec 2009 14:20:16 +0200</pubDate>
                 <link>http://tillenius.me/blog/2009/12/02/wanted-bzr-plugin-to-manage-branches-in-launchpad</link>
                 <guid isPermaLink="true">http://tillenius.me/blog/2009/12/02/wanted-bzr-plugin-to-manage-branches-in-launchpad</guid>
-            </item>
-        
-            <item>
-                <title>Dealing with USBError: No Error</title>
-                <description>&lt;p&gt;In &lt;a href=&quot;http://pygarmin.org/&quot;&gt;PyGarmin&lt;/a&gt;, I used &lt;a href=&quot;http://pyusb.berlios.de/&quot;&gt;PyUSB&lt;/a&gt; to implement USB support, and I was struck with one odd error. Sometimes, a &lt;code&gt;USBError&lt;/code&gt; was raised, with the error message &amp;quot;No error&amp;quot;. I couldn&amp;#39;t find any documentation for this, and I still don&amp;#39;t understand why an error was raised, saying that there was no error.&lt;/p&gt;
-
-&lt;p&gt;The error happenend when trying to read from the bus for the first time, after trying to send two packet without any errors. After some testing, I found out that simply trying to read again from the bus didn&amp;#39;t work, but if I send the two packets again, everything works without any errors.&lt;/p&gt;
-
-&lt;p&gt;For those interested, I fixed this in &lt;a href=&quot;http://bazaar.launchpad.net/%7Epygarmin-dev/pygarmin/trunk/revision/91&quot;&gt;revision 91 of PyGarmin&lt;/a&gt;.&lt;/p&gt;
-</description>
-                <pubDate>Wed, 30 Jul 2008 00:30:06 +0300</pubDate>
-                <link>http://tillenius.me/blog/2008/07/30/dealing-with-usberror-no-error</link>
-                <guid isPermaLink="true">http://tillenius.me/blog/2008/07/30/dealing-with-usberror-no-error</guid>
             </item>
         
     </channel>

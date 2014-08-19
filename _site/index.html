@@ -42,6 +42,19 @@
 
     <article class="post">
         <header class="post-header">
+            <span class="post-meta"><time datetime="2014-08-19">19 Aug 2014</time> </span>
+            <h2 class="post-title"><a href="/blog/2014/08/19/ubuntu-clickpad-middle-scroll">Enabling middleclick scrolling in Ubuntu for Lenovo clickpads</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            The short version is that if you want to enable middleclick scrolling for Lenovo clickpads in Ubuntu, do this in a terminal: sudo add-apt-repository ppa:bjornt/evdev sudo apt-get update sudo apt-get dist-upgrade The commands above should upgrade the xserver-xorg-input-evdev package, as well as remove the xserver-xorg-input-synaptics and xserver-xorg-input-all packages. Next you...
+        </section>
+    </article>
+
+    
+
+    <article class="post">
+        <header class="post-header">
             <span class="post-meta"><time datetime="2011-11-07">07 Nov 2011</time> </span>
             <h2 class="post-title"><a href="/blog/2011/11/07/using-webgo-on-google-app-engine">Using web.go on Google App Engine</a></h2>
 
@@ -217,19 +230,6 @@
         </header>
         <section class="post-excerpt">
             While extending pygarmin to support my Garmin Edge 305, I ran into a problem; pygarmin uses the serial protocol, and some packets that the Edge sends are too big for the serial protocol to handle. So when you request some information from the GPS, you don&#39;t get any response back....
-        </section>
-    </article>
-
-    
-
-    <article class="post">
-        <header class="post-header">
-            <span class="post-meta"><time datetime="2007-07-08">08 Jul 2007</time> </span>
-            <h2 class="post-title"><a href="/blog/2007/07/08/using-launchpad-to-contribute-to-projects">Using Launchpad to contribute to projects</a></h2>
-
-        </header>
-        <section class="post-excerpt">
-            While modifying pygarmin to support my Edge 305, I was faced with the problem how to submit my patches to be included in pygarmin; I don&#39;t have commit access, so I can&#39;t commit the changes myself. One way of doing it is of course to generate a diff, and attach...
         </section>
     </article>
 
