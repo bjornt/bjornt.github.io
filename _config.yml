@@ -10,5 +10,5 @@ permalink: /blog/:year/:month/:day/:title
 baseurl: /
 
 # Details for the RSS feed generator
-url:            'http://tillenius.me/'
+url:            'http://tillenius.me'
 author:         'Björn Tillenius'
