@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>   
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Björn Tillenius - Blogging about stuffs</title>
+    <meta name="description" content="Björn Tillenius, Blogging about stuffs" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <!-- This is for syntax highlight -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css">
+    <!-- Customisation  -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
+
+</head>
+<body class="home-template">
+
+    
+    <main class="content" role="main">
+
+    <article class="post">
+        <header class="post-header">
+            <a id="blog-logo" href="/">
+                
+                    <span class="blog-title">Björn Tillenius</span>
+                 
+            </a>
+        </header>
+        
+        <span class="post-meta">
+        	<time datetime="2014-08-19">19 Aug 2014</time>
+        	
+        		on
+	        	
+	        
+       	</span>
+
+        <h1 class="post-title">Enabling middleclick scrolling in Ubuntu for Lenovo clickpads</h1>
+
+        <section class="post-content">
+            <p>The short version is that if you want to enable middleclick scrolling
+for Lenovo clickpads in Ubuntu, do this in a terminal:</p>
+
+<pre><code>sudo add-apt-repository ppa:bjornt/evdev
+sudo apt-get update
+sudo apt-get dist-upgrade
+</code></pre>
+
+<p>The commands above should upgrade the <code>xserver-xorg-input-evdev</code> package,
+as well as remove the <code>xserver-xorg-input-synaptics</code> and
+<code>xserver-xorg-input-all</code> packages.</p>
+
+<p>Next you need to create a file at
+<code>/usr/share/X11/xorg.conf.d/90-clickpad.conf</code> with the following contents:</p>
+
+<pre><code>Section &quot;InputClass&quot;
+    Identifier &quot;Clickpad&quot;
+    MatchIsTouchpad &quot;on&quot;
+    MatchDevicePath &quot;/dev/input/event*&quot;
+    Driver &quot;evdev&quot;
+    # Synaptics options come here.
+    Option &quot;Clickpad&quot; &quot;true&quot;
+    option &quot;EmulatedMidButtonTime&quot; &quot;0&quot;
+    Option &quot;SoftButtonAreas&quot; &quot;65% 0 0 40% 42% 65% 0 40%&quot;
+    Option &quot;AreaBottomEdge&quot; &quot;0%&quot;
+EndSection
+
+Section &quot;InputClass&quot;
+    Identifier   &quot;TrackPoint&quot;
+    MatchProduct &quot;TrackPoint&quot;
+    MatchDriver  &quot;evdev&quot;
+    Option       &quot;EmulateWheel&quot;       &quot;1&quot;
+    Option       &quot;EmulateWheelButton&quot; &quot;2&quot;
+    Option       &quot;XAxisMapping&quot;       &quot;6 7&quot;
+EndSection
+</code></pre>
+
+<p>The interesting options are <code>SoftButtonAreas</code> and <code>AreaBottomEdge</code>.
+<code>SoftButtonAreas</code> specifies where the buttons should be. If you want the
+buttons at the top, itt should generally be in the form <code>&quot;R 0 0 H L R 0 H&quot;</code>,
+where <code>R</code> is where the border between the middle and right buttons, <code>H</code>
+is the height of the buttons, and <code>L</code> is the border between the middle and
+left buttons.</p>
+
+<p>The <code>AreaBottomEdge</code> turns off the touchpad, expect for clicking. If you
+want to keep using the touchpad, you can instead specify <code>AreaTopEdge</code>,
+with the same value you use for <code>H</code>. That would enable the touchpad below
+the buttons.</p>
+
+<p>Unfortunately, you can&#39;t specify where the left button should be,
+instead if occupies everything that isn&#39;t the middle or right button.
+This is a bit annoying, since at least I tend to touch the touchpad with
+my palm when reaching for the middle button, which will result in a left
+click being registered instead of a middle click.</p>
+
+<p>I created this package because Ubuntu doesn&#39;t quite support the
+clickpads that come in the newer Lenovo laptops. Ubuntu does support
+clickpads, and with the <code>SoftButtonAreas</code> config settings it&#39;s possible to
+have three soft buttons on the clickpad where the real buttons used to
+be. However, what&#39;s not supported out of the box is middleclick
+scrolling, where you hold the middle button and scroll with the
+trackpoint.</p>
+
+<p>The main problem is that the clickpad is driven by <code>synaptics</code> and
+the trackpoint by <code>evdev</code>, and they can&#39;t communicate to generate the
+scroll events. Bae Taegil <a href="https://aur.archlinux.org/packages/xf86-input-evdev-trackpoint/">patched the <code>evdev</code> driver</a> to basically include
+the <code>synaptics</code> driver. I&#39;ve taken that patch and generated a package for
+Ubuntu 14.04. I&#39;ve only added a package for Trusty, but I could add packages
+for other releases if needed. I will most likely add one for Utopic,
+when it becomes more stable.</p>
+
+        </section>
+
+        
+
+        <footer class="post-footer">
+        	<!-- If we want to display author's name and bio -->
+            
+                <section class="author">
+                	<header> <a href="/"> <img class="profile" src="/assets/images/profile.png" alt="Author's profile picture"></a></header>
+                	<article>
+                		<!-- Author Name -->
+                    	<h4> Björn Tillenius </h4>
+                    	<!-- Author Bio -->
+                    	<!-- p> 
+                    		Here goes the author description. You might want to place some links too in here
+                    	</p -->
+                    </article>
+                </section>                
+            
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="http://twitter.com/share?text=Enabling middleclick scrolling in Ubuntu for Lenovo clickpads&amp;url=http://tillenius.me/blog/2014/08/19/ubuntu-clickpad-middle-scroll"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://tillenius.me/blog/2014/08/19/ubuntu-clickpad-middle-scroll"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://tillenius.me/blog/2014/08/19/ubuntu-clickpad-middle-scroll"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+            
+            
+        	
+        </footer>
+
+    </article>
+
+</main>
+
+
+    <footer class="site-footer">
+        <a class="subscribe icon-feed" href="/rss.xml"><span class="tooltip">Subscribe!</span></a>
+        <div class="inner">
+             <section class="copyright">All content copyright <a href="/">Björn Tillenius</a> &copy;  &bull; All rights reserved.</section>
+             <section class="poweredby">Made with Jekyll using <a href="http://github.com/rosario/kasper">Kasper theme</a></section>
+        </div>
+    </footer>
+
+    
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Google Analytics Tracking code -->
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>   
+</body>
+</html>
