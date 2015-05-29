@@ -49,8 +49,7 @@
 <a href="http://code.google.com/appengine/docs/go/overview.html">Google App Engine&#39;s Go runtime environment</a>, check out
 <a href="https://github.com/bjornt/web.go/tree/google-app-engine">my <code>google-app-engine</code> branch of <code>web.go</code></a>.
 Using that one you can start using <code>web.go</code> like this:</p>
-
-<pre><code>package webgoexample
+<div class="highlight"><pre><code class="language-text" data-lang="text">package webgoexample
 
 import (
     &quot;http&quot;
@@ -76,8 +75,7 @@ func init() {
 func handler(writer http.ResponseWriter, request *http.Request) {
     server.ServeHTTP(writer, request)
 }
-</code></pre>
-
+</code></pre></div>
 <p>BTW, if you simply put the <a href="http://www.getwebgo.com/"><code>web.go</code></a> branch in your root dir,
 you have to remove the <code>examples/</code> directory, otherwise <a href="http://code.google.com/appengine/">App Engine</a> won&#39;t be able to compile your
 project.</p>

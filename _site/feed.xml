@@ -10,20 +10,17 @@
                 <title>Enabling middleclick scrolling in Ubuntu for Lenovo clickpads</title>
                 <description>&lt;p&gt;The short version is that if you want to enable middleclick scrolling
 for Lenovo clickpads in Ubuntu, do this in a terminal:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo add-apt-repository ppa:bjornt/evdev
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;sudo add-apt-repository ppa:bjornt/evdev
 sudo apt-get update
 sudo apt-get dist-upgrade
-&lt;/code&gt;&lt;/pre&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;The commands above should upgrade the &lt;code&gt;xserver-xorg-input-evdev&lt;/code&gt; package,
 as well as remove the &lt;code&gt;xserver-xorg-input-synaptics&lt;/code&gt; and
 &lt;code&gt;xserver-xorg-input-all&lt;/code&gt; packages.&lt;/p&gt;
 
 &lt;p&gt;Next you need to create a file at
 &lt;code&gt;/usr/share/X11/xorg.conf.d/90-clickpad.conf&lt;/code&gt; with the following contents:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Section &amp;quot;InputClass&amp;quot;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;Section &amp;quot;InputClass&amp;quot;
     Identifier &amp;quot;Clickpad&amp;quot;
     MatchIsTouchpad &amp;quot;on&amp;quot;
     MatchDevicePath &amp;quot;/dev/input/event*&amp;quot;
@@ -43,8 +40,7 @@ Section &amp;quot;InputClass&amp;quot;
     Option       &amp;quot;EmulateWheelButton&amp;quot; &amp;quot;2&amp;quot;
     Option       &amp;quot;XAxisMapping&amp;quot;       &amp;quot;6 7&amp;quot;
 EndSection
-&lt;/code&gt;&lt;/pre&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;The interesting options are &lt;code&gt;SoftButtonAreas&lt;/code&gt; and &lt;code&gt;AreaBottomEdge&lt;/code&gt;.
 &lt;code&gt;SoftButtonAreas&lt;/code&gt; specifies where the buttons should be. If you want the
 buttons at the top, itt should generally be in the form &lt;code&gt;&amp;quot;R 0 0 H L R 0 H&amp;quot;&lt;/code&gt;,
@@ -90,8 +86,7 @@ when it becomes more stable.&lt;/p&gt;
 &lt;a href=&quot;http://code.google.com/appengine/docs/go/overview.html&quot;&gt;Google App Engine&amp;#39;s Go runtime environment&lt;/a&gt;, check out
 &lt;a href=&quot;https://github.com/bjornt/web.go/tree/google-app-engine&quot;&gt;my &lt;code&gt;google-app-engine&lt;/code&gt; branch of &lt;code&gt;web.go&lt;/code&gt;&lt;/a&gt;.
 Using that one you can start using &lt;code&gt;web.go&lt;/code&gt; like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;package webgoexample
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;package webgoexample
 
 import (
     &amp;quot;http&amp;quot;
@@ -117,8 +112,7 @@ func init() {
 func handler(writer http.ResponseWriter, request *http.Request) {
     server.ServeHTTP(writer, request)
 }
-&lt;/code&gt;&lt;/pre&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;BTW, if you simply put the &lt;a href=&quot;http://www.getwebgo.com/&quot;&gt;&lt;code&gt;web.go&lt;/code&gt;&lt;/a&gt; branch in your root dir,
 you have to remove the &lt;code&gt;examples/&lt;/code&gt; directory, otherwise &lt;a href=&quot;http://code.google.com/appengine/&quot;&gt;App Engine&lt;/a&gt; won&amp;#39;t be able to compile your
 project.&lt;/p&gt;
@@ -140,18 +134,15 @@ surprised if &lt;code&gt;hr.RemoteAddr&lt;/code&gt; wouldn&amp;#39;t be an IP ad
             <item>
                 <title>formataddr() and unicode</title>
                 <description>&lt;p&gt;I often see code like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;message[&amp;quot;To&amp;quot;] = formataddr((name, email))
-&lt;/code&gt;&lt;/pre&gt;
-
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;message[&amp;quot;To&amp;quot;] = formataddr((name, email))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;This looks like it should work, especially since the docstring of &lt;code&gt;formataddr()&lt;/code&gt;
 says that it will return a string value suitable for a &lt;code&gt;To&lt;/code&gt; or &lt;code&gt;Cc&lt;/code&gt; header.
 However, while it works most of the time, it fails if &lt;code&gt;name&lt;/code&gt; is a
 unicode string containing non-ascii characters. It may look ok if you look
 simply read &lt;code&gt;message[&amp;quot;To&amp;quot;]&lt;/code&gt;, but as soon as you convert the message or header to
 a byte string, you will see the problem.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; from email.Message import Message
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&amp;gt;&amp;gt;&amp;gt; from email.Message import Message
 &amp;gt;&amp;gt;&amp;gt; from email.Utils import formataddr
 &amp;gt;&amp;gt;&amp;gt; msg = Message()
 &amp;gt;&amp;gt;&amp;gt; msg[&amp;quot;To&amp;quot;] = formataddr((u&amp;quot;Björn&amp;quot;, &amp;quot;bjorn@tillenius.me&amp;quot;))
@@ -159,24 +150,19 @@ a byte string, you will see the problem.&lt;/p&gt;
 u&amp;#39;Bj\xf6rn &amp;lt;bjorn@tillenius.me&amp;gt;&amp;#39;
 &amp;gt;&amp;gt;&amp;gt; msg.as_string()
 &amp;#39;To: =?utf-8?b?QmrDtnJuIDxiam9ybkB0aWxsZW5pdXMubWU+?=\n\n&amp;#39;
-&lt;/code&gt;&lt;/pre&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Most code that will use the &lt;code&gt;To&lt;/code&gt; address in the example will fail, since there&amp;#39;s no visible e-mail address in there. The header should look like this, i.e. only the name itself should be encoded:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;To: =?utf-8?b?QmrDtnJu?= &amp;lt;bjorn@tillenius.me&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;To: =?utf-8?b?QmrDtnJu?= &amp;lt;bjorn@tillenius.me&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;I wish Python would handle this better. I usually end up writing a helper
 function like this for projects I work on:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;def format_address(name, email):
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;def format_address(name, email):
     email = str(email)
     if not name:
         return email
     name = str(Header(name))
     return formataddr((name, email))
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
                 <pubDate>Fri, 11 Feb 2011 16:44:07 +0200</pubDate>
                 <link>http://tillenius.me/blog/2011/02/11/formataddr-and-unicode</link>
                 <guid isPermaLink="true">http://tillenius.me/blog/2011/02/11/formataddr-and-unicode</guid>

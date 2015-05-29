@@ -47,20 +47,17 @@
         <section class="post-content">
             <p>The short version is that if you want to enable middleclick scrolling
 for Lenovo clickpads in Ubuntu, do this in a terminal:</p>
-
-<pre><code>sudo add-apt-repository ppa:bjornt/evdev
+<div class="highlight"><pre><code class="language-text" data-lang="text">sudo add-apt-repository ppa:bjornt/evdev
 sudo apt-get update
 sudo apt-get dist-upgrade
-</code></pre>
-
+</code></pre></div>
 <p>The commands above should upgrade the <code>xserver-xorg-input-evdev</code> package,
 as well as remove the <code>xserver-xorg-input-synaptics</code> and
 <code>xserver-xorg-input-all</code> packages.</p>
 
 <p>Next you need to create a file at
 <code>/usr/share/X11/xorg.conf.d/90-clickpad.conf</code> with the following contents:</p>
-
-<pre><code>Section &quot;InputClass&quot;
+<div class="highlight"><pre><code class="language-text" data-lang="text">Section &quot;InputClass&quot;
     Identifier &quot;Clickpad&quot;
     MatchIsTouchpad &quot;on&quot;
     MatchDevicePath &quot;/dev/input/event*&quot;
@@ -80,8 +77,7 @@ Section &quot;InputClass&quot;
     Option       &quot;EmulateWheelButton&quot; &quot;2&quot;
     Option       &quot;XAxisMapping&quot;       &quot;6 7&quot;
 EndSection
-</code></pre>
-
+</code></pre></div>
 <p>The interesting options are <code>SoftButtonAreas</code> and <code>AreaBottomEdge</code>.
 <code>SoftButtonAreas</code> specifies where the buttons should be. If you want the
 buttons at the top, itt should generally be in the form <code>&quot;R 0 0 H L R 0 H&quot;</code>,

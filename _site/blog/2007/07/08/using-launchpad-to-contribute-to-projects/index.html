@@ -48,28 +48,20 @@
             <p>While modifying <a href="http://pygarmin.sourceforge.net/">pygarmin</a> to support my Edge 305, I was faced with the problem how to submit my patches to be included in pygarmin; I don&#39;t have commit access, so I can&#39;t commit the changes myself. One way of doing it is of course to generate a diff, and attach a patch to their patch tracker. That has some problems, though, especially since I want to submit a series of patches. The main problem is how to get people to try out the patches. They would have to apply each patch to their version of the source code, and some patches might not apply cleanly after a while.</p>
 
 <p>So, instead of submitting patches to their patch tracker, I make use of <a href="https://launchpad.net/">Launchpad</a>. It has a nice feature that you can import the project&#39;s source code and make it available as a <a href="http://bazaar-vcs.org/">bazaar</a> branch. By importing the code, I can subscribe to <a href="https://code.launchpad.net/%7Evcs-imports/pygarmin/trunk">pygarmin&#39;s main branch</a> in Launchpad, and get an e-mail notification when someone commits to the branch. But more importantly, I can now easily create a new branch to add support for my Garmin Edge 305:</p>
-
-<pre><code>bettan:~&gt; bzr branch lp:pygarmin edge-305
+<div class="highlight"><pre><code class="language-text" data-lang="text">bettan:~&gt; bzr branch lp:pygarmin edge-305
 Branched 82 revision(s).
-</code></pre>
-
+</code></pre></div>
 <p>Now I can hack on pygarmin and keep my changes versioned in bazaar, making it easier to keep my patches up-to-date. If code get commited to the trunk branch, I can simply merge and resolve the conflicts:</p>
-
-<pre><code>bettan:~/edge-305&gt; bzr merge lp:pygarmin
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">bettan:~/edge-305&gt; bzr merge lp:pygarmin
+</code></pre></div>
 <p>The next thing I want to do is to publish my changes, so that other people can look at them. I do this by pushing my branch to Launchpad:</p>
-
-<pre><code>bzr push bzr+ssh://bjornt@bazaar.launchpad.net/~bjornt/pygarmin/edge-305
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">bzr push bzr+ssh://bjornt@bazaar.launchpad.net/~bjornt/pygarmin/edge-305
+</code></pre></div>
 <p>After doing this, the first time, the branch gets registered in Launchpad automatically, and the branch shows up under &quot;Latest code&quot; on the pygarmin page. People can now look and subscribe to <a href="https://code.launchpad.net/%7Ebjornt/pygarmin/edge-305">my branch</a> to see what changes I make. They can also choose &quot;Browse code&quot; to <a href="http://codebrowse.launchpad.net/%7Ebjornt/pygarmin/edge-305/changes">see the code, and see the diff</a> of each revision I commit.</p>
 
 <p>If I want someone to try out my changes, I can tell them to get my branch from Launchpad:</p>
-
-<pre><code>bzr branch http://bazaar.launchpad.net/~bjornt/pygarmin/edge-305
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">bzr branch http://bazaar.launchpad.net/~bjornt/pygarmin/edge-305
+</code></pre></div>
         </section>
 
         

@@ -3,7 +3,7 @@ description: Blogging about stuffs
 meta_description: "Björn Tillenius, Blogging about stuffs"
 
 markdown: redcarpet
-pygments: true
+highlighter: true
 logo: false
 paginate: 15
 permalink: /blog/:year/:month/:day/:title

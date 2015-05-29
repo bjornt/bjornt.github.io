@@ -46,18 +46,15 @@
 
         <section class="post-content">
             <p>I often see code like this:</p>
-
-<pre><code>message[&quot;To&quot;] = formataddr((name, email))
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">message[&quot;To&quot;] = formataddr((name, email))
+</code></pre></div>
 <p>This looks like it should work, especially since the docstring of <code>formataddr()</code>
 says that it will return a string value suitable for a <code>To</code> or <code>Cc</code> header.
 However, while it works most of the time, it fails if <code>name</code> is a
 unicode string containing non-ascii characters. It may look ok if you look
 simply read <code>message[&quot;To&quot;]</code>, but as soon as you convert the message or header to
 a byte string, you will see the problem.</p>
-
-<pre><code>&gt;&gt;&gt; from email.Message import Message
+<div class="highlight"><pre><code class="language-text" data-lang="text">&gt;&gt;&gt; from email.Message import Message
 &gt;&gt;&gt; from email.Utils import formataddr
 &gt;&gt;&gt; msg = Message()
 &gt;&gt;&gt; msg[&quot;To&quot;] = formataddr((u&quot;Björn&quot;, &quot;bjorn@tillenius.me&quot;))
@@ -65,24 +62,19 @@ a byte string, you will see the problem.</p>
 u&#39;Bj\xf6rn &lt;bjorn@tillenius.me&gt;&#39;
 &gt;&gt;&gt; msg.as_string()
 &#39;To: =?utf-8?b?QmrDtnJuIDxiam9ybkB0aWxsZW5pdXMubWU+?=\n\n&#39;
-</code></pre>
-
+</code></pre></div>
 <p>Most code that will use the <code>To</code> address in the example will fail, since there&#39;s no visible e-mail address in there. The header should look like this, i.e. only the name itself should be encoded:</p>
-
-<pre><code>To: =?utf-8?b?QmrDtnJu?= &lt;bjorn@tillenius.me&gt;
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">To: =?utf-8?b?QmrDtnJu?= &lt;bjorn@tillenius.me&gt;
+</code></pre></div>
 <p>I wish Python would handle this better. I usually end up writing a helper
 function like this for projects I work on:</p>
-
-<pre><code>def format_address(name, email):
+<div class="highlight"><pre><code class="language-text" data-lang="text">def format_address(name, email):
     email = str(email)
     if not name:
         return email
     name = str(Header(name))
     return formataddr((name, email))
-</code></pre>
-
+</code></pre></div>
         </section>
 
         
