@@ -7,6 +7,69 @@
         <atom:link href="http://tillenius.me/feed.xml" rel="self" type="application/rss+xml" />
         
             <item>
+                <title>VLAN tagging with Linksys E8350</title>
+                <description>&lt;p&gt;I bought a &lt;a href=&quot;http://www.linksys.com/us/p/P-E8350/&quot;&gt;Linksys E8350&lt;/a&gt; router to
+replace the router my ISP gave me as well as an old Linksys WRT610N router.  I
+chose the E8350, since from the setup screenshots it looked like it could do
+VLAN tagging, which I need. I was disappointed at first, since the UI doesn&amp;#39;t
+allow you to do VLAN tagging for the LAN ports. But it turned out that with a
+little bit of hacking, it&amp;#39;s possible to do it.&lt;/p&gt;
+
+&lt;p&gt;Doing VLAN tagging with 5 ports is quite limiting, but just about enough
+for my use case. I get a, somewhat odd, trunk from my ISP which has a VLAN
+for IPTV traffic, but regular Internet packets aren&amp;#39;t tagged. I have the
+router in my bedroom and want to access both the LAN and IPTV networks in
+my living room. But I have only a single cable connecting the rooms, so I
+use VLANs to be able to connect both networks with one cable.&lt;/p&gt;
+
+&lt;p&gt;The first attempt to make port 4 the trunk for the IPTV and LAN VLANs
+failed:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/vlan-fail.png&quot; alt=&quot;Failed VLAN taggging attempt&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;It&amp;#39;s odd, because the UI looks like it would allow creating a trunk on
+the LAN ports. A closer look at the Javascript that does the validation
+revealed this:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;    for(i=1;i&amp;lt;VLAN_ENTRY;i++)
+    {
+        obj = getEle(ele_id_name[ele]+i);
+        if(obj.value != port_option[2])
+        {
+            if(flag == true){
+                //[share.js]errmsg.err104=&amp;quot;A VLAN port can be untagged to only one VLAN ID.&amp;quot;;
+                alert(errmsg.err104);
+                obj.focus();
+                return false;
+            }
+            flag = true;
+        }
+    }
+    return true;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The commented out error message makes sense. A port can&amp;#39;t be untagged in
+different VLANs. But the actual code checks also that a port can&amp;#39;t be
+tagged in different VLANs, and that doesn&amp;#39;t make much sense. It could be a
+bug, but considering that the actual error message that was displayed
+doesn&amp;#39;t mention &amp;#39;untagged&amp;#39;, it could be that they took an existing VLAN UI
+from some other product, and just crippled it. The E8350 is a consumer
+model after all.&lt;/p&gt;
+
+&lt;p&gt;Now, what would happen if the validation above would be disabled? The
+Javascript is in the HTML file, and Chromium Developer Tool doesn&amp;#39;t
+allow such Javascript to be edited. Instead, let&amp;#39;s put a breakpoint
+whenever &lt;code&gt;flag&lt;/code&gt; is set to &lt;code&gt;true&lt;/code&gt; and use the Javascript console to set it
+back to &lt;code&gt;false&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/vlan-success.png&quot; alt=&quot;Successful VLAN taggging attempt&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Look at that, it worked!&lt;/p&gt;
+</description>
+                <pubDate>Sun, 31 May 2015 17:00:00 +0300</pubDate>
+                <link>http://tillenius.me/blog/2015/05/31/linksys-e8350-vlan-tagging</link>
+                <guid isPermaLink="true">http://tillenius.me/blog/2015/05/31/linksys-e8350-vlan-tagging</guid>
+            </item>
+        
+            <item>
                 <title>Enabling middleclick scrolling in Ubuntu for Lenovo clickpads</title>
                 <description>&lt;p&gt;The short version is that if you want to enable middleclick scrolling
 for Lenovo clickpads in Ubuntu, do this in a terminal:&lt;/p&gt;
@@ -491,21 +554,6 @@ branch and manually make sure that it works nicely when integrated. Take a look 
                 <pubDate>Fri, 11 Dec 2009 18:35:12 +0200</pubDate>
                 <link>http://tillenius.me/blog/2009/12/11/think-about-integration-issues</link>
                 <guid isPermaLink="true">http://tillenius.me/blog/2009/12/11/think-about-integration-issues</guid>
-            </item>
-        
-            <item>
-                <title>Wanted: bzr plugin to manage branches in Launchpad</title>
-                <description>&lt;p&gt;I will probably implement this myself at some point, but if anyone wants to use their &lt;a href=&quot;http://bazaar-vcs.org/&quot;&gt;bzr&lt;/a&gt; and &lt;a href=&quot;https://launchpad.net/launchpadlib&quot;&gt;launchpadlib&lt;/a&gt; skills to make the world a slightly better place, I&amp;#39;d be grateful. You don&amp;#39;t even have to have any bzr and launchpadlib skills, both are quite easy to get started with. This could be a great opportunity to learn more about them!&lt;/p&gt;
-
-&lt;p&gt;I want a &lt;a href=&quot;http://bazaar-vcs.org/WritingPlugins&quot;&gt;bzr plugin&lt;/a&gt; that queries &lt;a href=&quot;https://launchpad.net/&quot;&gt;Launchpad&lt;/a&gt; and list all my branches that aren&amp;#39;t &lt;code&gt;Merged&lt;/code&gt; or &lt;code&gt;Abandoned&lt;/code&gt;. I want it to work in the context of a branch, so that it automatically knows which project I&amp;#39;m interested in, although having it work outside a branch and list branches for all my projects would be useful as well.&lt;/p&gt;
-
-&lt;p&gt;To remove branches from the list of active branches, I&amp;#39;d also like to be able to mark a branch as &lt;code&gt;Abandoned&lt;/code&gt; using the plugin.&lt;/p&gt;
-
-&lt;p&gt;Bonus points if any attached merge proposals and their status also are listed.&lt;/p&gt;
-</description>
-                <pubDate>Wed, 02 Dec 2009 14:20:16 +0200</pubDate>
-                <link>http://tillenius.me/blog/2009/12/02/wanted-bzr-plugin-to-manage-branches-in-launchpad</link>
-                <guid isPermaLink="true">http://tillenius.me/blog/2009/12/02/wanted-bzr-plugin-to-manage-branches-in-launchpad</guid>
             </item>
         
     </channel>

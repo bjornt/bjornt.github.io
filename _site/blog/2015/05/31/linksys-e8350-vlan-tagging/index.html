@@ -35,23 +35,71 @@
         </header>
         
         <span class="post-meta">
-        	<time datetime="2009-12-02">02 Dec 2009</time>
+        	<time datetime="2015-05-31">31 May 2015</time>
         	
         		on
 	        	
 	        
        	</span>
 
-        <h1 class="post-title">Wanted: bzr plugin to manage branches in Launchpad</h1>
+        <h1 class="post-title">VLAN tagging with Linksys E8350</h1>
 
         <section class="post-content">
-            <p>I will probably implement this myself at some point, but if anyone wants to use their <a href="http://bazaar-vcs.org/">bzr</a> and <a href="https://launchpad.net/launchpadlib">launchpadlib</a> skills to make the world a slightly better place, I&#39;d be grateful. You don&#39;t even have to have any bzr and launchpadlib skills, both are quite easy to get started with. This could be a great opportunity to learn more about them!</p>
+            <p>I bought a <a href="http://www.linksys.com/us/p/P-E8350/">Linksys E8350</a> router to
+replace the router my ISP gave me as well as an old Linksys WRT610N router.  I
+chose the E8350, since from the setup screenshots it looked like it could do
+VLAN tagging, which I need. I was disappointed at first, since the UI doesn&#39;t
+allow you to do VLAN tagging for the LAN ports. But it turned out that with a
+little bit of hacking, it&#39;s possible to do it.</p>
 
-<p>I want a <a href="http://bazaar-vcs.org/WritingPlugins">bzr plugin</a> that queries <a href="https://launchpad.net/">Launchpad</a> and list all my branches that aren&#39;t <code>Merged</code> or <code>Abandoned</code>. I want it to work in the context of a branch, so that it automatically knows which project I&#39;m interested in, although having it work outside a branch and list branches for all my projects would be useful as well.</p>
+<p>Doing VLAN tagging with 5 ports is quite limiting, but just about enough
+for my use case. I get a, somewhat odd, trunk from my ISP which has a VLAN
+for IPTV traffic, but regular Internet packets aren&#39;t tagged. I have the
+router in my bedroom and want to access both the LAN and IPTV networks in
+my living room. But I have only a single cable connecting the rooms, so I
+use VLANs to be able to connect both networks with one cable.</p>
 
-<p>To remove branches from the list of active branches, I&#39;d also like to be able to mark a branch as <code>Abandoned</code> using the plugin.</p>
+<p>The first attempt to make port 4 the trunk for the IPTV and LAN VLANs
+failed:</p>
 
-<p>Bonus points if any attached merge proposals and their status also are listed.</p>
+<p><img src="/assets/images/vlan-fail.png" alt="Failed VLAN taggging attempt"></p>
+
+<p>It&#39;s odd, because the UI looks like it would allow creating a trunk on
+the LAN ports. A closer look at the Javascript that does the validation
+revealed this:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">    for(i=1;i&lt;VLAN_ENTRY;i++)
+    {
+        obj = getEle(ele_id_name[ele]+i);
+        if(obj.value != port_option[2])
+        {
+            if(flag == true){
+                //[share.js]errmsg.err104=&quot;A VLAN port can be untagged to only one VLAN ID.&quot;;
+                alert(errmsg.err104);
+                obj.focus();
+                return false;
+            }
+            flag = true;
+        }
+    }
+    return true;
+</code></pre></div>
+<p>The commented out error message makes sense. A port can&#39;t be untagged in
+different VLANs. But the actual code checks also that a port can&#39;t be
+tagged in different VLANs, and that doesn&#39;t make much sense. It could be a
+bug, but considering that the actual error message that was displayed
+doesn&#39;t mention &#39;untagged&#39;, it could be that they took an existing VLAN UI
+from some other product, and just crippled it. The E8350 is a consumer
+model after all.</p>
+
+<p>Now, what would happen if the validation above would be disabled? The
+Javascript is in the HTML file, and Chromium Developer Tool doesn&#39;t
+allow such Javascript to be edited. Instead, let&#39;s put a breakpoint
+whenever <code>flag</code> is set to <code>true</code> and use the Javascript console to set it
+back to <code>false</code>.</p>
+
+<p><img src="/assets/images/vlan-success.png" alt="Successful VLAN taggging attempt"></p>
+
+<p>Look at that, it worked!</p>
 
         </section>
 
@@ -75,15 +123,15 @@
 
             <section class="share">
                 <h4>Share this post</h4>
-                <a class="icon-twitter" href="http://twitter.com/share?text=Wanted: bzr plugin to manage branches in Launchpad&amp;url=http://tillenius.me/blog/2009/12/02/wanted-bzr-plugin-to-manage-branches-in-launchpad"
+                <a class="icon-twitter" href="http://twitter.com/share?text=VLAN tagging with Linksys E8350&amp;url=http://tillenius.me/blog/2015/05/31/linksys-e8350-vlan-tagging"
                     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                     <span class="hidden">Twitter</span>
                 </a>
-                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://tillenius.me/blog/2009/12/02/wanted-bzr-plugin-to-manage-branches-in-launchpad"
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://tillenius.me/blog/2015/05/31/linksys-e8350-vlan-tagging"
                     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                     <span class="hidden">Facebook</span>
                 </a>
-                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://tillenius.me/blog/2009/12/02/wanted-bzr-plugin-to-manage-branches-in-launchpad"
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://tillenius.me/blog/2015/05/31/linksys-e8350-vlan-tagging"
                    onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
                     <span class="hidden">Google+</span>
                 </a>
@@ -93,7 +141,7 @@
                 <script src="https://apis.google.com/js/plusone.js">
                 </script>
                 <div class="g-comments"
-                    data-href="http://tillenius.me/blog/2009/12/02/wanted-bzr-plugin-to-manage-branches-in-launchpad"
+                    data-href="http://tillenius.me/blog/2015/05/31/linksys-e8350-vlan-tagging"
                     data-width="642"
                     data-first_party_property="BLOGGER"
                     data-view_type="FILTERED_POSTMOD">
