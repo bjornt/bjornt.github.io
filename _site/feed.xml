@@ -7,6 +7,61 @@
         <atom:link href="http://tillenius.me/feed.xml" rel="self" type="application/rss+xml" />
         
             <item>
+                <title>Using smbus with Python 3 on a Raspberry Pi</title>
+                <description>&lt;p&gt;A while ago I got an Orange Matchbox, which is a
+&lt;a href=&quot;https://www.raspberrypi.org/&quot;&gt;Raspberry Pi&lt;/a&gt; running
+&lt;a href=&quot;https://developer.ubuntu.com/en/snappy/&quot;&gt;Snappy Ubuntu Core&lt;/a&gt; together
+with an Ubuntu branded case and a
+&lt;a href=&quot;https://shop.pimoroni.com/products/piglow&quot;&gt;PiGlow&lt;/a&gt;. The 
+&lt;a href=&quot;http://people.canonical.com/%7Eplatform/snappy/raspberrypi2/&quot;&gt;Snappy image for Raspberry Pi&lt;/a&gt;
+recently got support for &lt;code&gt;I2C&lt;/code&gt;, so I tried to drive
+the PiGlow using Python 3. It turned out it wasn&amp;#39;t trivial, since
+&lt;code&gt;python-smbus&lt;/code&gt; doesn&amp;#39;t support Python 3 out of the box. Further more, you
+can&amp;#39;t install &lt;code&gt;.debs&lt;/code&gt; in Snappy, so installing &lt;code&gt;python-smbus&lt;/code&gt; for Python 2
+doesn&amp;#39;t work either. And it&amp;#39;s a C extension, so you can&amp;#39;t just copy
+over the sources.&lt;/p&gt;
+
+&lt;p&gt;I&amp;#39;ve seen some posts about how you can patch the &lt;code&gt;python-smbus&lt;/code&gt; source
+code and recompile it for Python 3. That&amp;#39;s a lot of work when you just
+want to try and play around a bit. I instead took a stab at
+reimplementing &lt;code&gt;python-smbus&lt;/code&gt; in pure Python. You can find the result
+here:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;https://github.com/bjornt/pysmbus
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;It only implements two methods so far, &lt;code&gt;read_byte_data&lt;/code&gt; and
+&lt;code&gt;write_byte_data&lt;/code&gt;, but that goes a long way. I also patched the
+&lt;a href=&quot;https://github.com/benleb/PyGlow&quot;&gt;PyGlow&lt;/a&gt; package to support Python3
+and not to require &lt;code&gt;RPi.GPIO&lt;/code&gt;, which also is a
+C extension I don&amp;#39;t want to recompile:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;https://github.com/bjornt/PyGlow/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;With these two packages, we can now drive the PiGlow using Python 3 in
+Snappy Ubuntu Core. First we assemble the code on our desktop machine
+and copy it to the Raspberry Pi:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;desktop:~&amp;gt; git clone https://github.com/bjornt/PyGlow/
+desktop:~&amp;gt; cd PyGlow
+desktop:~/PyGlow&amp;gt; wget https://github.com/bjornt/pysmbus/raw/master/smbus.py
+desktop:~/PyGlow&amp;gt; scp -r ../PyGlow ubuntu@pi2:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Then, on the Raspberry Pi, we run the bin_block.py example. Note that we
+have to use sudo, so that we get permission to access the I2C bus:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;desktop:~/PyGlow&amp;gt; ssh ubuntu@pi2
+(RaspberryPi2)ubuntu@localhost:~$ cd PyGlow
+(RaspberryPi2)ubuntu@localhost:~/PyGlow$
+(RaspberryPi2)ubuntu@localhost:~/PyGlow$ sudo PYTHONPATH=. python3 examples/bin_clock.py
+ Hour | Minute | Second
+01111 | 011001 | 111010 (15:25:58)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;If we look at our Raspberry Pi, we should see the PiGlow&amp;#39;s lights working:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/orange-matchbox-lights.jpg&quot; alt=&quot;PiGlow glowing&quot;&gt;&lt;/p&gt;
+</description>
+                <pubDate>Sun, 06 Sep 2015 18:50:00 +0300</pubDate>
+                <link>http://tillenius.me/blog/2015/09/06/raspberry-pi-smbus-python-3</link>
+                <guid isPermaLink="true">http://tillenius.me/blog/2015/09/06/raspberry-pi-smbus-python-3</guid>
+            </item>
+        
+            <item>
                 <title>VLAN tagging with Linksys E8350</title>
                 <description>&lt;p&gt;I bought a &lt;a href=&quot;http://www.linksys.com/us/p/P-E8350/&quot;&gt;Linksys E8350&lt;/a&gt; router to
 replace the router my ISP gave me as well as an old Linksys WRT610N router.  I
@@ -501,59 +556,6 @@ the regular test suite from the beginning, OK?&lt;/p&gt;
                 <pubDate>Mon, 21 Dec 2009 16:28:25 +0200</pubDate>
                 <link>http://tillenius.me/blog/2009/12/21/block-on-test-failures</link>
                 <guid isPermaLink="true">http://tillenius.me/blog/2009/12/21/block-on-test-failures</guid>
-            </item>
-        
-            <item>
-                <title>Think about integration issues</title>
-                <description>&lt;p&gt;When doing work on something that is supposed to be used by others, don&amp;#39;t forget to think about how it&amp;#39;s actually going to be used. Not
-only to think about it, but to actually try it out, to confirm that it
-works nicely when integrated, and that it&amp;#39;s easy to integrate
-it. And let&amp;#39;s not forget to document how to integrate it, and ideally to
-test it as well.&lt;/p&gt;
-
-&lt;p&gt;As an example, in &lt;a href=&quot;https://launchpad.net/launchpad&quot;&gt;Launchpad&lt;/a&gt; we use 
-&lt;a href=&quot;https://launchpad.net/lazr-js&quot;&gt;lazr-js&lt;/a&gt; for our Javascript 
-infrastructure. We recently changed the way it&amp;#39;s integrated into 
-Launchpad, giving it a proper &lt;code&gt;setup.py&lt;/code&gt; file, so that we can generate 
-an egg and depend on it through &lt;a href=&quot;http://buildout.org/&quot;&gt;Buildout&lt;/a&gt;. The 
-integration issue was of course taken into account there, making sure it
-was easy to build lazr-js both standalone, and when used in another 
-project, like Launchpad. There was one command to build everything, 
-which is simple enough. However, one thing wasn&amp;#39;t done. It wasn&amp;#39;t 
-documented how you should use lazr-js in another project. Therefore,
-when people continued to develop lazr-js, adding more features, and
-making the build system more complicated, there wasn&amp;#39;t much thought 
-about keeping it easy to build lazr-js in other projects. The build 
-process became more complicated, multiple commands had to be executed.
-This is fine when building lazr-js by itself, since all you have to do 
-is &lt;code&gt;make build&lt;/code&gt;. However, when using lazr-js as an egg, you don&amp;#39;t have 
-access the &lt;code&gt;Makefile&lt;/code&gt;, which means that you have to duplicate the build
-steps. Therefore, having the build to be more than one command, makes it
-harder to use elsewhere. In fact, the build process of lazr-js 
-changed so much, that we didn&amp;#39;t know anymore, how to properly use the 
-latest version of lazr-js in Launchpad.&lt;/p&gt;
-
-&lt;p&gt;This is just one example of integrating external libraries. But the same
-is true for code internal to the project. When developing code that is 
-to be used by multiple call sites, it&amp;#39;s important to think about how 
-it&amp;#39;s actually going to be used. It&amp;#39;s easy to get carried away, 
-developing a, what you think, really nice API. But then when people 
-start to use it, it turns out that it&amp;#39;s not so nice.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;What can be done to avoid integration issue?&lt;/strong&gt; Ideally, you should 
-document and test how the integration is supposed to work. By doing this,
-you get a feel of how to use the API. Doctests are actually quite nice 
-for this purpose. If you manage to produce a readable doctest, it&amp;#39;s 
-quite probable that your API is easy enough to use.&lt;/p&gt;
-
-&lt;p&gt;Sometimes adding tests for integration isn&amp;#39;t feasible. For example,
-in the case of lazr-js is not that easy. What I do when I develop on 
-lazr-js is to have a throw-away Launchpad branch, where I use my lazr-js
-branch and manually make sure that it works nicely when integrated. Take a look at how it looks when integrated. What steps do you have to do to use it? Is that something that you will want to do for every call site? Are people likely to copy and paste an existing example to use your code? If the answer to the last question is yes, it&amp;#39;s not easy to use your code.&lt;/p&gt;
-</description>
-                <pubDate>Fri, 11 Dec 2009 18:35:12 +0200</pubDate>
-                <link>http://tillenius.me/blog/2009/12/11/think-about-integration-issues</link>
-                <guid isPermaLink="true">http://tillenius.me/blog/2009/12/11/think-about-integration-issues</guid>
             </item>
         
     </channel>
