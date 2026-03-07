@@ -1,1 +1,4 @@
 build
+_site
+_posts.bak
+Gemfile.lock

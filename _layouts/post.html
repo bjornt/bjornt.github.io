@@ -1,6 +1,5 @@
 ---
 layout: default
-disqus: false
 archive: false
 ---
 
@@ -48,7 +47,7 @@ archive: false
         	<!-- If we want to display author's name and bio -->
             {% if site.author %}
                 <section class="author">
-                	<header> <a href="https://plus.google.com/+BjörnTillenius1?rel=author"> <img class="profile" src="/assets/images/profile.png" alt="Author's profile picture"></a></header>
+                	<header> <img class="profile" src="/assets/images/profile.png" alt="Author's profile picture"></header>
                 	<article>
                 		<!-- Author Name -->
                     	<h4> {{ site.author }} </h4>
@@ -62,7 +61,7 @@ archive: false
 
             <section class="share">
                 <h4>Share this post</h4>
-                <a class="icon-twitter" href="http://twitter.com/share?text={{page.title}}&amp;url={{site.url}}{{ page.url }}"
+                <a class="icon-twitter" href="https://twitter.com/share?text={{page.title}}&amp;url={{site.url}}{{ page.url }}"
                     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                     <span class="hidden">Twitter</span>
                 </a>
@@ -70,40 +69,7 @@ archive: false
                     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                     <span class="hidden">Facebook</span>
                 </a>
-                <a class="icon-google-plus" href="https://plus.google.com/share?url={{site.url}}{{page.url}}"
-                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
-                    <span class="hidden">Google+</span>
-                </a>
             </section>
-
-            <section class="google-comments">
-                <script src="https://apis.google.com/js/plusone.js">
-                </script>
-                <div class="g-comments"
-                    data-href="{{site.url}}{{page.url}}"
-                    data-width="642"
-                    data-first_party_property="BLOGGER"
-                    data-view_type="FILTERED_POSTMOD">
-                </div>
-            </section>
-
-            {% if page.disqus %}
-            <section class="disqus">
-            	<div id="disqus_thread"></div>
-            	<script type="text/javascript">
-
-            	    var disqus_shortname = ''; 
-            		var disqus_developer = 0; // developer mode is on
-            	    (function() {
-            	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            	        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-            	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            	    })();
-            	</script>
-            	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-            	<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-            </section>
-            {% endif %}
         	
         </footer>
 
