@@ -4,6 +4,9 @@ meta_description: "Björn Tillenius, Blogging about stuffs"
 
 markdown: kramdown
 highlighter: rouge
+
+plugins:
+  - jekyll-paginate
 logo: false
 paginate: 15
 permalink: /blog/:year/:month/:day/:title
