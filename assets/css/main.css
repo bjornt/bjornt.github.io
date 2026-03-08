@@ -71,6 +71,11 @@ img.profile {
         color: #b0bec5;
     }
 
+    mark {
+        background-color: #7a5f00;
+        color: #ffd966;
+    }
+
     hr {
         border-top-color: #3a3a3a;
     }
