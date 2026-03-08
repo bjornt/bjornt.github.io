@@ -3,7 +3,7 @@ layout: page
 title: About
 ---
 
-I'm a software developer with more than 20 years of Python experience. I currently work at [Canonical](https://canonical.com), in the [MAAS](https://maas.io) team.
+I'm a software developer from Sweden with more than 20 years of Python experience. I currently work at [Canonical](https://canonical.com), in the [MAAS](https://maas.io) team.
 
 On this site I write mostly about topics related to software development and engineering.
 
