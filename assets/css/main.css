@@ -1,5 +1,25 @@
 /* Rosario. I've added and changed few things. Feel free to change it as you like */
 
+/* Site nav */
+.site-nav {
+    position: absolute;
+    top: 1.2em;
+    right: 1.5em;
+    z-index: 10;
+}
+
+.site-nav a {
+    color: #eee;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-shadow: 1px 1px #234;
+}
+
+.site-nav a:hover {
+    color: #fff;
+}
+
 /* Social links in footer */
 .social-links {
     display: flex;
