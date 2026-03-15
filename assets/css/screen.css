@@ -22,31 +22,30 @@
    0. Includes - Ground zero
    ========================================================================== */
 
-
-
 /* ==========================================================================
    1. Icons - Sets up the icon font and respective classes
    ========================================================================== */
 
 /* Import the font file with the icons in it */
 @font-face {
-    font-family: 'icons';
-    src:url('../fonts/icons.eot');
-    src:url('../fonts/icons.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/icons.woff') format('woff'),
-        url('../fonts/icons.ttf') format('truetype'),
-        url('../fonts/icons.svg#icons') format('svg');
+    font-family: "icons";
+    src: url("../fonts/icons.eot");
+    src:
+        url("../fonts/icons.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/icons.woff") format("woff"),
+        url("../fonts/icons.ttf") format("truetype"),
+        url("../fonts/icons.svg#icons") format("svg");
     font-weight: normal;
     font-style: normal;
 }
 
 /* Apply these base styles to all icons */
-.icon-ghost:before, 
-.icon-feed:before, 
-.icon-twitter:before, 
-.icon-google-plus:before, 
+.icon-ghost:before,
+.icon-feed:before,
+.icon-twitter:before,
+.icon-google-plus:before,
 .icon-facebook:before {
-    font-family: 'icons';
+    font-family: "icons";
     speak: none;
     font-style: normal;
     font-weight: normal;
@@ -57,7 +56,7 @@
     text-decoration: none;
 }
 
-/* Each icon is created by inserting the corret character into the 
+/* Each icon is created by inserting the corret character into the
    content of the :before pseudo element. Like a boss. */
 .icon-ghost:before {
     content: "\e000";
@@ -76,7 +75,6 @@
     content: "\e004";
 }
 
-
 /* ==========================================================================
    2. General - Setting up some base styles
    ========================================================================== */
@@ -90,30 +88,34 @@ html {
 body {
     height: 100%;
     max-height: 100%;
-    font-family: 'Noto Serif', serif;
-    font-size: 2.0rem;
+    font-family: "Noto Serif", serif;
+    font-size: 2rem;
     line-height: 1.75em;
-    color: #3A4145;
+    color: #3a4145;
 }
 
 ::-moz-selection {
     color: #222;
-    background: #D6EDFF;
+    background: #d6edff;
     text-shadow: none;
 }
 
 ::selection {
     color: #222;
-    background: #D6EDFF;
+    background: #d6edff;
     text-shadow: none;
 }
 
-h1, h2, h3,
-h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     text-rendering: optimizeLegibility;
     line-height: 1;
     margin-top: 0;
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Open Sans", sans-serif;
 }
 
 h1 {
@@ -131,19 +133,19 @@ h2 {
 }
 
 h3 {
-    font-size: 2.6rem;
+    font-size: 2.2rem;
 }
 
 h4 {
-    font-size: 3rem;
+    font-size: 2rem;
 }
 
 h5 {
-    font-size: 2.5rem;
+    font-size: 1.8rem;
 }
 
 h6 {
-    font-size: 2rem;
+    font-size: 1.6rem;
 }
 
 a {
@@ -155,18 +157,26 @@ a:hover {
     color: #0d4f82;
 }
 
-h1 a, h2 a, h3 a,
-h4 a, h5 a, h6 a {
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a {
     color: #1a6faf;
 }
 
-
-p, ul, ol, dl {
+p,
+ul,
+ol,
+dl {
     margin: 1.6em 0;
 }
 
-ol ol, ul ul,
-ul ol, ol ul {
+ol ol,
+ul ul,
+ul ol,
+ol ul {
     margin: 0.4em 0;
 }
 
@@ -179,12 +189,12 @@ dl dt {
     text-overflow: ellipsis;
     white-space: nowrap;
     font-weight: bold;
-    margin-bottom: 1em
+    margin-bottom: 1em;
 }
 
 dl dd {
     margin-left: 200px;
-    margin-bottom: 1em
+    margin-bottom: 1em;
 }
 
 hr {
@@ -212,29 +222,34 @@ blockquote p {
 blockquote small {
     display: inline-block;
     margin: 0.8em 0 0.8em 1.5em;
-    font-size:0.9em;
+    font-size: 0.9em;
     color: #ccc;
 }
 
-blockquote small:before { content: '\2014 \00A0'; }
-
-blockquote cite {
-    font-weight:bold;
+blockquote small:before {
+    content: "\2014 \00A0";
 }
 
-blockquote cite a { font-weight: normal; }
+blockquote cite {
+    font-weight: bold;
+}
+
+blockquote cite a {
+    font-weight: normal;
+}
 
 mark {
     background-color: #ffc336;
 }
 
-code, tt {
+code,
+tt {
     padding: 1px 3px;
     font-family: Inconsolata, monospace, sans-serif;
     font-size: 0.85em;
     white-space: pre-wrap;
-    border: 1px solid #E3EDF3;
-    background: #F7FAFB;
+    border: 1px solid #e3edf3;
+    background: #f7fafb;
     border-radius: 2px;
 }
 
@@ -242,18 +257,19 @@ pre {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     margin: 1.6em 0;
-    border: 1px solid #E3EDF3;
+    border: 1px solid #e3edf3;
     width: 100%;
     padding: 10px;
     font-family: Inconsolata, monospace, sans-serif;
     font-size: 0.9em;
     white-space: pre;
     overflow: auto;
-    background: #F7FAFB;
+    background: #f7fafb;
     border-radius: 3px;
 }
 
-pre code, tt {
+pre code,
+tt {
     font-size: inherit;
     white-space: -moz-pre-wrap;
     white-space: pre-wrap;
@@ -273,8 +289,8 @@ kbd {
     font-weight: bold;
     background: #f4f4f4;
     border-radius: 4px;
-    box-shadow: 
-        0 1px 0 rgba(0, 0, 0, 0.2), 
+    box-shadow:
+        0 1px 0 rgba(0, 0, 0, 0.2),
         0 1px 0 0 #fff inset;
 }
 
@@ -282,7 +298,7 @@ table {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     margin: 1.6em 0;
-    width:100%;
+    width: 100%;
     max-width: 100%;
     background-color: transparent;
 }
@@ -296,7 +312,9 @@ table td {
     border-top: 1px solid #efefef;
 }
 
-table th { color: #000; }
+table th {
+    color: #000;
+}
 
 table caption + thead tr:first-child th,
 table caption + thead tr:first-child td,
@@ -307,9 +325,13 @@ table thead:first-child tr:first-child td {
     border-top: 0;
 }
 
-table tbody + tbody { border-top: 2px solid #efefef; }
+table tbody + tbody {
+    border-top: 2px solid #efefef;
+}
 
-table table table { background-color: #fff; }
+table table table {
+    background-color: #fff;
+}
 
 table tbody > tr:nth-child(odd) > td,
 table tbody > tr:nth-child(odd) > th {
@@ -318,10 +340,11 @@ table tbody > tr:nth-child(odd) > th {
 
 table.plain tbody > tr:nth-child(odd) > td,
 table.plain tbody > tr:nth-child(odd) > th {
-   background: transparent;
+    background: transparent;
 }
 
-iframe, .fluid-width-video-wrapper {
+iframe,
+.fluid-width-video-wrapper {
     display: block;
     margin: 1.6em 0;
 }
@@ -331,7 +354,6 @@ margin on the iframe, cause it breaks stuff. */
 .fluid-width-video-wrapper iframe {
     margin: 0;
 }
-
 
 /* ==========================================================================
    3. Utilities - These things get used a lot
@@ -357,7 +379,6 @@ margin on the iframe, cause it breaks stuff. */
     display: table-cell;
     vertical-align: middle;
 }
-
 
 /* ==========================================================================
    4. General - The main styles for the the theme
@@ -395,7 +416,7 @@ margin on the iframe, cause it breaks stuff. */
     font-size: 4rem;
     letter-spacing: -1px;
     font-weight: bold;
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Open Sans", sans-serif;
 }
 
 .blog-description {
@@ -403,18 +424,18 @@ margin on the iframe, cause it breaks stuff. */
     font-size: 1.8rem;
     line-height: 1.5em;
     font-weight: 300;
-    font-family: 'Noto Serif', serif;
+    font-family: "Noto Serif", serif;
     letter-spacing: 0;
 }
 
 /* Every post, on every page, gets this style on its <article> tag */
 .post {
     position: relative;
-    width:80%;
-    max-width: 700px;
+    width: 80%;
+    max-width: 730px;
     margin: 4rem auto;
     padding-bottom: 4rem;
-    border-bottom: #EBF2F6 1px solid;
+    border-bottom: #ebf2f6 1px solid;
     word-break: break-word;
     hyphens: auto;
 }
@@ -426,7 +447,7 @@ margin on the iframe, cause it breaks stuff. */
     content: "";
     width: 7px;
     height: 7px;
-    border: #E7EEF2 1px solid;
+    border: #e7eef2 1px solid;
     position: absolute;
     bottom: -5px;
     left: 50%;
@@ -439,7 +460,7 @@ margin on the iframe, cause it breaks stuff. */
 }
 
 .post-title {
-    margin:0;
+    margin: 0;
 }
 
 .post-title a {
@@ -455,7 +476,7 @@ margin on the iframe, cause it breaks stuff. */
 .post-meta {
     display: inline-block;
     margin: 0 0 5px 0;
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Open Sans", sans-serif;
     font-size: 1.5rem;
     color: #596f7a;
 }
@@ -539,6 +560,17 @@ margin on the iframe, cause it breaks stuff. */
     padding: 2.5rem 0;
 }
 
+/* Distinguish h2 section headings from h3 sub-headings */
+.post-content h2 {
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid #ebf2f6;
+    margin-top: 3rem;
+}
+
+.post-content h3 {
+    margin-top: 2.4rem;
+}
+
 /* Keep large images within the bounds of the post-width */
 .post-content img {
     display: block;
@@ -552,7 +584,7 @@ margin on the iframe, cause it breaks stuff. */
     position: relative;
     margin: 4rem 0 0 0;
     padding: 4rem 0 0 0;
-    border-top: #EBF2F6 1px solid;
+    border-top: #ebf2f6 1px solid;
 }
 
 .post-footer h4 {
@@ -591,9 +623,8 @@ margin on the iframe, cause it breaks stuff. */
 }
 
 .post-footer .share a:hover {
-    color: #50585D;
+    color: #50585d;
 }
-
 
 /* ==========================================================================
    6. Third Party Elements - Embeds from other services
@@ -611,7 +642,6 @@ margin on the iframe, cause it breaks stuff. */
     font-size: 1.1rem;
 }
 
-
 /* ==========================================================================
    7. Pagination - Tools to let you flick between pages
    ========================================================================== */
@@ -622,7 +652,7 @@ margin on the iframe, cause it breaks stuff. */
     width: 80%;
     max-width: 700px;
     margin: 4rem auto;
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Open Sans", sans-serif;
     font-size: 1.3rem;
     color: #596f7a;
     text-align: center;
@@ -638,7 +668,7 @@ margin on the iframe, cause it breaks stuff. */
     position: absolute;
     display: inline-block;
     padding: 0 15px;
-    border: #EBF2F6 2px solid;
+    border: #ebf2f6 2px solid;
     text-decoration: none;
     border-radius: 30px;
     transition: border ease 0.3s;
@@ -662,7 +692,6 @@ margin on the iframe, cause it breaks stuff. */
     border-color: #596f7a;
 }
 
-
 /* ==========================================================================
    8. Footer - The bottom of every page
    ========================================================================== */
@@ -671,8 +700,8 @@ margin on the iframe, cause it breaks stuff. */
     position: relative;
     margin: 8rem 0 0 0;
     padding: 4rem 0;
-    border-top: #EBF2F6 1px solid;
-    font-family: 'Open Sans', sans-serif;
+    border-top: #ebf2f6 1px solid;
+    font-family: "Open Sans", sans-serif;
     font-size: 1.3rem;
     line-height: 1.7em;
     color: #596f7a;
@@ -685,7 +714,7 @@ margin on the iframe, cause it breaks stuff. */
 }
 
 .site-footer a:hover {
-    color: #50585D;
+    color: #50585d;
 }
 
 .poweredby .icon-ghost {
@@ -710,7 +739,7 @@ margin on the iframe, cause it breaks stuff. */
     top: -14px;
     left: 50%;
     margin-left: -15px;
-    border: #EBF2F6 1px solid;
+    border: #ebf2f6 1px solid;
     text-align: center;
     line-height: 2.4rem;
     border-radius: 50px;
@@ -731,45 +760,47 @@ margin on the iframe, cause it breaks stuff. */
 
 /* Add a box shadow to on hover */
 .subscribe:hover {
-    box-shadow: rgba(0,0,0,0.05) 0 0 0 3px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0 0 0 3px;
     transition: box-shadow 0.25s;
 }
 
 .subscribe:hover:before {
-    color: #50585D;
+    color: #50585d;
 }
 
 /* CSS tooltip saying "Subscribe!" - initially hidden */
 .tooltip {
-    opacity:0;
+    opacity: 0;
     display: inline-block;
     padding: 4px 8px 5px 8px;
-    position:absolute;
+    position: absolute;
     top: -23px;
     left: -21px;
-    color: rgba(255,255,255,0.9);
+    color: rgba(255, 255, 255, 0.9);
     font-size: 1.1rem;
     line-height: 1em;
     text-align: center;
-    background: #50585D;
-    border-radius:20px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-    transition: opacity 0.3s ease, top 0.3s ease;
+    background: #50585d;
+    border-radius: 20px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    transition:
+        opacity 0.3s ease,
+        top 0.3s ease;
 }
 
 /* The little chiclet arrow under the tooltip, pointing down */
 .tooltip:after {
-    content:"";
-    border-width:5px 5px 0 5px;
-    border-style:solid;
-    border-color: #50585D transparent;
-    display:block;
-    position:absolute;
-    bottom:-4px;
-    left:50%;
-    margin-left:-5px;
+    content: "";
+    border-width: 5px 5px 0 5px;
+    border-style: solid;
+    border-color: #50585d transparent;
+    display: block;
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    margin-left: -5px;
     z-index: 220;
-    width:0;
+    width: 0;
 }
 
 /* On hover, show the tooltip! */
@@ -778,13 +809,11 @@ margin on the iframe, cause it breaks stuff. */
     top: -33px;
 }
 
-
 /* ==========================================================================
    9. Media Queries - Smaller than 900px
    ========================================================================== */
 
 @media only screen and (max-width: 900px) {
-
     blockquote {
         margin-left: 0;
     }
@@ -830,27 +859,24 @@ margin on the iframe, cause it breaks stuff. */
     }
 
     h3 {
-        font-size: 2.4rem;
+        font-size: 2rem;
     }
 
     h4 {
-        font-size: 2.2rem;
+        font-size: 1.8rem;
     }
-
 }
 
 /* ==========================================================================
    10. Media Queries - Smaller than 500px
    ========================================================================== */
 
-
 @media only screen and (max-width: 500px) {
-
     .blog-logo img {
         max-height: 80px;
     }
 
-    .inner, 
+    .inner,
     .pagination {
         width: auto;
         margin-left: 16px;
@@ -858,7 +884,7 @@ margin on the iframe, cause it breaks stuff. */
     }
 
     .post {
-        width:auto;
+        width: auto;
         margin-left: 16px;
         margin-right: 16px;
         font-size: 0.8em;
@@ -877,19 +903,19 @@ margin on the iframe, cause it breaks stuff. */
         font-size: 1.5rem;
     }
 
-
-    h1, h2 {
+    h1,
+    h2 {
         font-size: 2.6rem;
         line-height: 1.1em;
         letter-spacing: -1px;
     }
 
     h3 {
-        font-size: 2.2rem;
+        font-size: 1.9rem;
     }
 
     h4 {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
 
     .post-template .post {
@@ -912,7 +938,7 @@ margin on the iframe, cause it breaks stuff. */
     .post-footer .author {
         margin: 0 0 2rem 0;
         padding: 0 0 1.6rem 0;
-        border-bottom: #EBF2F6 1px dashed;
+        border-bottom: #ebf2f6 1px dashed;
     }
 
     .post-footer .share {
@@ -938,7 +964,6 @@ margin on the iframe, cause it breaks stuff. */
         margin-top: 6rem;
         font-size: 1.1rem;
     }
-
 }
 
 /* ==========================================================================
